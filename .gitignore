@@ -8,10 +8,30 @@ Desktop.ini
 *.suo
 *.user
 *.userosscache
-*.sin_docstates
+*.sln.docstates
 
 # PowerShell
 *.ps1xml
 *.psm1
 *.psd1
-*.psc
+*.pssc
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# AWS CLI
+.aws/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Logs
+*.log
+logs/
