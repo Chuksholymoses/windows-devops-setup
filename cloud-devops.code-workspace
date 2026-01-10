@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.cwd": "C:\\cloud-devops-journey-2026",
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true
+  }
+}
