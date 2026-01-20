@@ -1,12 +1,15 @@
-# 🔄 Environment Synchronization Checklist
+# Environment Sync Checklist
 
-## 🎯 PURPOSE
-This file ensures both work environments (Home PC and Office Codespace) are identical, preventing "it works on my machine" problems.
+## Tools to Install:
+1. Git - `git --version`
+2. AWS CLI - `aws --version`
+3. VS Code with PowerShell extension
 
-## ✅ BOTH LOCATIONS MUST HAVE THESE CONFIGURED:
+## Daily Workflow:
+1. Home PC: `git add .`, `git commit`, `git push`
+2. Office PC: `git pull`
+3. Work
+4. Office PC: `git add .`, `git commit`, `git push`
+5. Home PC: `git pull`
 
-### 1. AWS CLI
-```bash
-# Verification command:
-aws --version
-# Expected: aws-cli/2.15.x
+## Last Sync: $(date)
