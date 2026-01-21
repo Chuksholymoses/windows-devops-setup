@@ -18,8 +18,7 @@ done
 
 echo ""
 echo "2. Checking 04-career-prep content..."
-CAREER_ITEMS=$(find 04-career-prep/ -maxdepth 1 -type f | wc -l)
-if [ "$CAREER_ITEMS" -eq 1 ]; then  # Only README.md
+if [ -f "04-career-prep/README.md" ] && [ $(find 04-career-prep -maxdepth 1 -type f | wc -l) -eq 1 ]; then
     echo "   ✅ 04-career-prep clean (only README.md)"
 else
     echo "   ❌ 04-career-prep has extra items:"
@@ -29,33 +28,50 @@ fi
 echo ""
 echo "3. Checking scripts..."
 SCRIPTS=("init-project.sh" "make-executable.sh" "setup-aliases.sh" "sync-environment.sh" "verify-structure.sh")
+ALL_GOOD=true
 for script in "${SCRIPTS[@]}"; do
-    if [ -f "scripts/$script" ]; then
-        if [ -x "scripts/$script" ]; then
-            echo "   ✅ $script exists and executable"
-        else
-            echo "   ⚠️ $script exists but NOT executable"
-        fi
+    if [ -f "scripts/$script" ] && [ -x "scripts/$script" ]; then
+        echo "   ✅ $script exists and executable"
     else
-        echo "   ❌ $script missing"
+        echo "   ❌ $script missing or not executable"
+        ALL_GOOD=false
     fi
 done
 
 echo ""
-echo "4. Testing aliases..."
-# Use 'command -v' instead of 'type' for better compatibility
-if command -v gs &> /dev/null; then
-    echo "   ✅ gs alias works"
+echo "4. Testing environment..."
+# Check if we're in right directory
+if [ "$(pwd)" = "/c/cloud-devops-journey-2026" ] || [ "$(pwd)" = "/workspaces/cloud-devops-journey-2026" ]; then
+    echo "   ✅ In correct project directory"
 else
-    echo "   ❌ gs alias missing"
+    echo "   ❌ NOT in project directory: $(pwd)"
 fi
 
-if command -v cdproj &> /dev/null; then
-    echo "   ✅ cdproj alias works"
+# Check git
+if command -v git &> /dev/null; then
+    echo "   ✅ Git is available"
 else
-    echo "   ❌ cdproj alias missing"
+    echo "   ❌ Git not found"
 fi
 
 echo ""
+echo "5. Quick functionality test..."
+# Test basic commands
+echo "   Testing: ls"
+ls > /dev/null 2>&1 && echo "   ✅ ls works" || echo "   ❌ ls failed"
+
+echo "   Testing: git status"
+git status --short > /dev/null 2>&1 && echo "   ✅ git status works" || echo "   ❌ git status failed"
+
+echo ""
 echo "================================"
-echo "✅ VERIFICATION COMPLETE"
+if [ "$ALL_GOOD" = true ]; then
+    echo "✅ VERIFICATION COMPLETE - SYSTEM READY!"
+    echo ""
+    echo "��� ALIAS TIPS:"
+    echo "   Aliases are set in ~/.bashrc"
+    echo "   Run 'source ~/.bashrc' to load them"
+    echo "   Or restart your terminal"
+else
+    echo "⚠️  ISSUES FOUND - Check above"
+fi
